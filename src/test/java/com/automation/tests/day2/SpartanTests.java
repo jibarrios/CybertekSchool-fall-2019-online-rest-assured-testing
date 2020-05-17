@@ -1,5 +1,6 @@
 package com.automation.tests.day2;
 
+import io.restassured.http.ContentType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -27,5 +28,26 @@ public class SpartanTests {
         when().
                 get("/api/spartans").prettyPeek().
         then().statusCode(200);
+    }
+
+    //add new spartan
+
+    @Test
+    @DisplayName("Add new spartan")
+    public void addSpartan(){
+        //JSON supports different data types: string, integer, boolean
+        String body = "{\"gender\": \"Male\", \"name\": \"Random User\", \"phone\": 9999999999}";
+
+        //to create new item, we perform POST request
+        given().
+                contentType(ContentType.JSON).
+                auth().basic("admin", "admin").
+                body(body).
+                baseUri(BASE_URL).
+        when().
+                post("/api/spartans").prettyPeek().
+        then().
+                statusCode(201);
+
     }
 }
