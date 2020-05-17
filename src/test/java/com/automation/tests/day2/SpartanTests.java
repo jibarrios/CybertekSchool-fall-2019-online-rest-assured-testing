@@ -59,4 +59,30 @@ public class SpartanTests {
                 statusCode(201);
 
     }
+
+    @Test
+    @DisplayName("Delete some spartan and verify that status code is 204")
+    public void deleteSpartanTest(){
+        //{id} - path parameter
+        //YOU CANNOT DELETE SOMETHING TWICE
+        //we yse delete() method to delete something
+        //204 - No content, most common status code for successful delete action
+        //authentication - who you are? you need to tell to the server who you are before getting any data
+        //ALL HTTP STATUS CODES HAVE SAME MEANING EVERYWHERE
+        // 201 - always after successful POST request
+        // 200 - always after successful GET request
+        // 204 - always after successful DELETE request
+        // 4XX - always after unsuccessful request and it was YOUR FAULT
+        //
+
+        given().
+                auth().basic("admin", "admin").
+                baseUri(BASE_URL).
+        when().
+                delete("/api/spartans/{id}", 792).prettyPeek().
+        then().
+                statusCode(204);
+
+    }
+
 }
