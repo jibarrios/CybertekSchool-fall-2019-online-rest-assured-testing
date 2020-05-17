@@ -1,6 +1,7 @@
 package com.automation.tests.day2;
 
 import io.restassured.response.Response;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -40,10 +41,40 @@ public class ORDSTests {
         //after when() we specify HTTP request type/method/verb
         //The path parameters. E.g. if path is "/book/{hotelId}/{roomNumber}" you can do <code>get("/book/{hotelName}/{roomNumber}", "Hotels R Us", 22);</code>.
         Response response = given().
-                                baseUri(BASE_URL).
-                            when().get("/employees/{id}", 100).prettyPeek();
+                baseUri(BASE_URL).
+                when().get("/employees/{id}", 100).prettyPeek();
         //how we verify response? - use assertions
 
-        response.then().statusCode(200);//to verify that status is 200
+        response.then().statusCode(200);//to verify that status is 200 OK
+
+        int statusCode = response.statusCode();//to save status code in variable
+
+        Assertions.assertEquals(200, statusCode);
+
+        //if assertions fails, you will get this kind of message:
+        /**
+         * java.lang.AssertionError: 1 expectation failed.
+         * Expected status code <201> but was <200>.
+         * 200 is always expected status code after GET requset
+         */
+    }
+
+    /**
+     * given base URI = http://3.90.112.152:1000/ords/hr
+     * when user sends get request to "/countries"
+     * then user verifies that status code is 200
+     */
+
+    @Test
+    @DisplayName("Get list of all countries and verify that status code is 200")
+    public void getAllCountries() {
+        given().
+                baseUri(BASE_URL).
+                when().
+                get("/countries").prettyPeek().
+                then().
+                statusCode(200);
+
+        ///statusLine - to verify status line
     }
 }
