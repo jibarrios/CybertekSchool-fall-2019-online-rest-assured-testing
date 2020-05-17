@@ -51,7 +51,7 @@ public class SpartanTests {
         given().
                 contentType(ContentType.JSON).
                 auth().basic("admin", "admin").
-                body(jsonFile).
+                body(body).
                 baseUri(BASE_URL).
                 when().
                 post("/api/spartans").prettyPeek().
