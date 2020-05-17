@@ -4,6 +4,8 @@ import io.restassured.http.ContentType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+
 import static io.restassured.RestAssured.given;
 
 public class SpartanTests {
@@ -16,7 +18,7 @@ public class SpartanTests {
 
     @Test
     @DisplayName("Get list of all spartans") //optional
-    public void getAllSpartans(){
+    public void getAllSpartans() {
         //401 - unauthorized, since we didn't provide credentials request failedx
         //how to provide credentials?
         //there different types of authentication: basic, oauth 1.0,  oauth 2.0, api key, bearer token, etc...
@@ -25,28 +27,35 @@ public class SpartanTests {
         given().
                 auth().basic("admin", "admin").
                 baseUri(BASE_URL).
-        when().
+                when().
                 get("/api/spartans").prettyPeek().
-        then().statusCode(200);
+                then().statusCode(200);
     }
 
     //add new spartan
 
     @Test
     @DisplayName("Add new spartan")
-    public void addSpartan(){
+    public void addSpartan() {
         //JSON supports different data types: string, integer, boolean
         String body = "{\"gender\": \"Male\", \"name\": \"Random User\", \"phone\": 9999999999}";
+        //instead of string variable, we can use external JSON file
+        //use File class to read JSON and pass it into body
+        //provide path to the JSON as a parameter
+        File jsonFile = new File(System.getProperty("user.dir") + "/spartan.json");
 
         //to create new item, we perform POST request
+        //contentType(ContentType.JSON) - to tell web service what kind of media type we send
+
+
         given().
                 contentType(ContentType.JSON).
                 auth().basic("admin", "admin").
-                body(body).
+                body(jsonFile).
                 baseUri(BASE_URL).
-        when().
+                when().
                 post("/api/spartans").prettyPeek().
-        then().
+                then().
                 statusCode(201);
 
     }
