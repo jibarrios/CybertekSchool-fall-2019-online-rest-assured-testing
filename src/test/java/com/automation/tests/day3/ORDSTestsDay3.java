@@ -65,6 +65,15 @@ public class ORDSTestsDay3 {
         String nameOfFirstEmployee = jsonPath.getString("items[0].first_name");//0 - to get first item in the list
         String nameOfLastEmployee = jsonPath.getString("items[-1].first_name");//-1 - to get last item in the list, like length() - n
 
+
+        Map<String, ?> searchByName = jsonPath.get("items.find{it.last_name == 'Hunold'}");
+        String searchByEmail = jsonPath.get("items.find{it.email == 'BERNST'}.last_name");
+        String maxSalary = jsonPath.get("items.max{it.salary}.last_name");
+
+        System.out.println(searchByName);
+        System.out.println(searchByEmail);
+        System.out.println(maxSalary);
+
         System.out.println("First name of 1st employee: " + nameOfFirstEmployee);
         System.out.println("First name of last employee: " + nameOfLastEmployee);
 
