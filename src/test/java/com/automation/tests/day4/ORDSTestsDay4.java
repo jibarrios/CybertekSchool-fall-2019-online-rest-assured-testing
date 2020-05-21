@@ -115,5 +115,46 @@ public class ORDSTestsDay4 {
         System.out.println("Company's payroll: " + companysPayroll);
     }
 
+    /**
+     * given path parameter is "/employees"
+     * when user makes get request
+     * then assert that status code is 200
+     * Then user verifies that every employee has positive salary
+     */
 
+    @Test
+    @DisplayName("Verify that every employee has positive salary")
+    public void testSalary() {
+        when().
+                get("/employees").
+                then().assertThat().
+                statusCode(200).
+                body("items.salary", everyItem(greaterThan(0))).
+                log().ifError();
+    }
+
+
+    /**
+     * given path parameter is "/employees/{id}"
+     * and path parameter is 101
+     * when user makes get request
+     * then assert that status code is 200
+     * and verifies that phone number is 515-123-4568
+     */
+
+    @Test
+    public void verifyPhoneNumber() {
+        Response response = when().get("/employees/{id}", 101).prettyPeek();
+        response.then().assertThat().statusCode(200);
+
+        String expected = "515-123-4568";
+        String actual = response.jsonPath().getString("phone_number").replace(".", "-");
+
+        assertEquals(200, response.statusCode());
+        assertEquals(expected, actual);
+
+
+    }
+
+//http://docs.groovy-lang.org/latest/html/documentation/#_gpath
 }
