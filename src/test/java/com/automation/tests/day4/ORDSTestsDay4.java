@@ -89,6 +89,7 @@ public class ORDSTestsDay4 {
         //collectionName.findAll{it.propertyName == 'Value'}.propertyName
         List<String> countryNames = response.jsonPath().getList("items.findAll{it.region_id == 2}.country_name");
 
+
         System.out.println("Country name: " + countryName);
         System.out.println(countryUS);
         System.out.println(countryNames);
@@ -96,6 +97,22 @@ public class ORDSTestsDay4 {
         for (Map.Entry<String, Object> entry : countryUS.entrySet()) {
             System.out.printf("key = %s, value = %s\n", entry.getKey(), entry.getValue());
         }
+    }
+
+    //let's find employee with highest salary. Use GPath
+
+    @Test
+    public void getEmployeeTest() {
+        Response response = when().get("/employees").prettyPeek();
+        //collectionName.max{it.propertyName}
+        Map<String, ?> bestEmployee = response.jsonPath().get("items.max{it.salary}");
+        Map<String, ?> poorGuy = response.jsonPath().get("items.min{it.salary}");
+
+        int companysPayroll = response.jsonPath().get("items.collect{it.salary}.sum()");
+
+        System.out.println(bestEmployee);
+        System.out.println(poorGuy);
+        System.out.println("Company's payroll: " + companysPayroll);
     }
 
 
