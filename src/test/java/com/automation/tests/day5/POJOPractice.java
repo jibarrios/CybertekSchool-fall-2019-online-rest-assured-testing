@@ -23,6 +23,16 @@ public class POJOPractice {
 
     @BeforeAll
     public static void beforeAll(){
-
+        baseURI = ConfigurationReader.getProperty("SPARTAN.URI");
     }
+
+    @Test
+    public void getUser(){
+      Response response =   given().
+                                auth().
+                                basic("admin", "admin").
+                            when().
+                                get("/spartans/{id}", 393).prettyPeek();
+    }
+
 }
