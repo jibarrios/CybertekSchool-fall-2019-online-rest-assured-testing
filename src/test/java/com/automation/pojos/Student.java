@@ -14,7 +14,7 @@ package com.automation.pojos;
  *     "admissionNo": "1234",
  *     "major": "CS",
  *     "section": "101010",
- *     "contact": {
+ *     "contacts": {
  *         "contactId": 11633,
  *         "phone": "240-123-1231",
  *         "emailAddress": "james_bond@gmail.com",
@@ -48,6 +48,7 @@ public class Student {
     private String admissionNo;
     private String major;
     private String section;
+    private Contact contact;
 
 
 }
