@@ -46,7 +46,7 @@ public class Employee {
     private int managerId;
     @SerializedName("department_id")
     private int departmentId;
-    private List<Map<String, Object>> links;
+    private List<Link> links;
 
     public int getEmployeeId() {
         return employeeId;
@@ -132,11 +132,11 @@ public class Employee {
         this.departmentId = departmentId;
     }
 
-    public List<Map<String, Object>> getLinks() {
+    public List<Link> getLinks() {
         return links;
     }
 
-    public void setLinks(List<Map<String, Object>> links) {
+    public void setLinks(List<Link> links) {
         this.links = links;
     }
 
