@@ -18,6 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import static io.restassured.RestAssured.*;
@@ -48,18 +49,18 @@ public class POJOPracticeWithSpartanApp {
         spartan.put("phone", "123112312312");
 
         RequestSpecification requestSpecification = given().
-                                                        auth().basic("admin", "admin").
-                                                        contentType(ContentType.JSON).
-                                                        accept(ContentType.JSON).
-                                                        body(spartan);
+                auth().basic("admin", "admin").
+                contentType(ContentType.JSON).
+                accept(ContentType.JSON).
+                body(spartan);
 
         Response response = given().
-                                auth().basic("admin", "admin").
-                                contentType(ContentType.JSON).
-                                accept(ContentType.JSON).
-                                body(spartan).
-                                when().
-                            post("/spartans").prettyPeek();
+                auth().basic("admin", "admin").
+                contentType(ContentType.JSON).
+                accept(ContentType.JSON).
+                body(spartan).
+                when().
+                post("/spartans").prettyPeek();
 
         response.then().statusCode(201);
         response.then().body("success", is("A Spartan is Born!"));
@@ -77,7 +78,7 @@ public class POJOPracticeWithSpartanApp {
 
     @Test
     @DisplayName("Retrieve exiting user, update his name and verify that name was updated successfully.")
-    public void updateSpartanTest(){
+    public void updateSpartanTest() {
         int userToUpdate = 101;
         String name = "Nursultan";
 
@@ -90,22 +91,22 @@ public class POJOPracticeWithSpartanApp {
 
         //get spartan from web service
         Spartan spartanToUpdate = given().
-                                        auth().basic("admin", "admin").
-                                        accept(ContentType.JSON).
-                                  when().
-                                        get("/spartans/{id}", userToUpdate).as(Spartan.class);
+                auth().basic("admin", "admin").
+                accept(ContentType.JSON).
+                when().
+                get("/spartans/{id}", userToUpdate).as(Spartan.class);
         //update property that you need without affecting other properties
-        System.out.println("Before update: "+spartanToUpdate);
+        System.out.println("Before update: " + spartanToUpdate);
         spartanToUpdate.setName(name);//change only name
-        System.out.println("After update: "+spartanToUpdate);
+        System.out.println("After update: " + spartanToUpdate);
 
         //request to update existing user with id 101
         Response response = given().
-                                auth().basic("admin", "admin").
-                                contentType(ContentType.JSON).
-                                body(spartanToUpdate).
-                            when().
-                                put("/spartans/{id}", userToUpdate).prettyPeek();
+                auth().basic("admin", "admin").
+                contentType(ContentType.JSON).
+                body(spartanToUpdate).
+                when().
+                put("/spartans/{id}", userToUpdate).prettyPeek();
 
         //verify that status code is 204 after update
         response.then().statusCode(204);
@@ -113,12 +114,56 @@ public class POJOPracticeWithSpartanApp {
         //to get user with id 101, the one that we've just updated
         given().
                 auth().basic("admin", "admin").
-        when().
+                when().
                 get("/spartans/{id}", userToUpdate).prettyPeek().
-        then().
+                then().
                 statusCode(200).body("name", is(name));
         //verify that name is correct, after update
+    }
 
+    @Test
+    @DisplayName("Verify that user can perform PATCH request")
+    public void patchUserTest1() {
+        //PATCH - partial update of existing record
 
+        int userId = 21;//user to update, make user with this id exist
+
+        //let's pu the code to take random user
+        //get all spartans
+        Response response0 = given().accept(ContentType.JSON).when().get("/spartans");
+        //I can save them all in the array list
+        List<Spartan> allSpartans = response0.jsonPath().getList("", Spartan.class);
+        //Spartan.class - data type of collection
+        //getList - get JSON body as a list
+
+        //generate random number
+        Random random = new Random();
+        int randomNum = random.nextInt(allSpartans.size());
+
+        int randomUserID = allSpartans.get(randomNum).getId();
+        System.out.println("NAME BEFORE: " + allSpartans.get(randomNum).getName());
+
+        userId = randomUserID;//to assign random user id
+        System.out.println(allSpartans);
+
+        Map<String, String> update = new HashMap<>();
+        update.put("name", "Nursultan");
+        //this is a request to update user
+        Response response = given().
+                contentType(ContentType.JSON).
+                body(update).
+                when().
+                patch("/spartans/{id}", userId);
+
+        response.then().assertThat().statusCode(204);
+
+        //after we sent PATCH request, let's make sure that name is updated
+        //this is a request to verify that name was updated and status code is correct as well
+        given().
+                accept(ContentType.JSON).
+                when().
+                get("/spartans/{id}", userId).prettyPeek().
+                then().
+                assertThat().statusCode(200).body("name", is("Nursultan"));
     }
 }
