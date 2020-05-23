@@ -167,4 +167,6 @@ public class POJOPracticeWithSpartanApp {
                 then().
                 assertThat().statusCode(200).body("name", is("Nursultan"));
     }
+
+
 }
