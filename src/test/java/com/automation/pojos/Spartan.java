@@ -8,13 +8,13 @@ import java.util.Objects;
  * This class represents spartan POJO
  * Example of JSON response:
  * {
- *     "id": 393,               ->   private int id;
- *     "name": "Michael Scott", ->   private String name;
- *     "gender": "Male",        ->   private String gender;
- *     "phone": 6969696969      ->   @SerializedName("phone") private long phoneNumber;
+ * "id": 393,               ->   private int id;
+ * "name": "Michael Scott", ->   private String name;
+ * "gender": "Male",        ->   private String gender;
+ * "phone": 6969696969      ->   @SerializedName("phone") private long phoneNumber;
  * }
- *   SerializedName  - an annotation that indicates this member should be serialized to JSON with
- *  * the provided name value as its field name.
+ * SerializedName  - an annotation that indicates this member should be serialized to JSON with
+ * * the provided name value as its field name.
  */
 public class Spartan {
     private int id;
@@ -23,20 +23,20 @@ public class Spartan {
     @SerializedName("phone")
     private long phoneNumber;
 
-    public Spartan(String name, String gender, long phoneNumber){
+    public Spartan(String name, String gender, long phoneNumber) {
         this.name = name;
         this.gender = gender;
-        this.phoneNumber = phoneNumber;
+        setPhoneNumber(phoneNumber);
     }
 
-    public Spartan(int id, String name, String gender, long phoneNumber){
-        this.id=id;
+    public Spartan(int id, String name, String gender, long phoneNumber) {
+        this.id = id;
         this.name = name;
         this.gender = gender;
-        this.phoneNumber = phoneNumber;
+        setPhoneNumber(phoneNumber);
     }
 
-    public Spartan(){
+    public Spartan() {
 
     }
 
@@ -65,6 +65,9 @@ public class Spartan {
     }
 
     public void setPhoneNumber(long phoneNumber) {
+        if (String.valueOf(phoneNumber).length() < 10) {
+            throw new RuntimeException("Phone number is too short!");
+        }
         this.phoneNumber = phoneNumber;
     }
 

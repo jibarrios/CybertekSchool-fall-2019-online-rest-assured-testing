@@ -87,4 +87,6 @@ public class POJOPractice {
                 assertThat().statusCode(204);//to ensure that user was deleted
     }
 
+
+
 }
