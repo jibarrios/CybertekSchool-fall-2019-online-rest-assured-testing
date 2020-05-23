@@ -130,7 +130,7 @@ public class POJOPracticeWithSpartanApp {
 
         //let's pu the code to take random user
         //get all spartans
-        Response response0 = given().accept(ContentType.JSON).when().get("/spartans");
+        Response response0 = given().accept(ContentType.JSON).when().get("/spartans").prettyPeek();
         //I can save them all in the array list
         List<Spartan> allSpartans = response0.jsonPath().getList("", Spartan.class);
         //Spartan.class - data type of collection
