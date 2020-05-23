@@ -138,6 +138,7 @@ public class POJOPracticeWithSpartanApp {
 
         //generate random number
         Random random = new Random();
+
         int randomNum = random.nextInt(allSpartans.size());
 
         int randomUserID = allSpartans.get(randomNum).getId();

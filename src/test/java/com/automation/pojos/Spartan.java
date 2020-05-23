@@ -91,6 +91,6 @@ public class Spartan {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, gender, phoneNumber);
+        return Objects.hash(id);
     }
 }
