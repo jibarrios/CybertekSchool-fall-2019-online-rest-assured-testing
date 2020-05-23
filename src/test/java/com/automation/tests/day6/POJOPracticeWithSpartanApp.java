@@ -83,6 +83,8 @@ public class POJOPracticeWithSpartanApp {
 
         //HTTP PUT request to update exiting record, for example exiting spartan.
         //PUT - requires to provide ALL parameters in body
+        //PUT requires same body as POST
+        //If you miss at least one parameter, it will not work
 
         Spartan spartan = new Spartan(name, "Male", 123112312312L);
 
@@ -116,6 +118,7 @@ public class POJOPracticeWithSpartanApp {
         then().
                 statusCode(200).body("name", is(name));
         //verify that name is correct, after update
+
 
     }
 }
