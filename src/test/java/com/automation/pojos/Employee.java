@@ -1,8 +1,7 @@
 package com.automation.pojos;
 
 import com.google.gson.annotations.SerializedName;
-
-import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -47,7 +46,7 @@ public class Employee {
     private int managerId;
     @SerializedName("department_id")
     private int departmentId;
-    private String[] links;
+    private List<Map<String, Object>> links;
 
     public int getEmployeeId() {
         return employeeId;
@@ -133,11 +132,11 @@ public class Employee {
         this.departmentId = departmentId;
     }
 
-    public String[] getLinks() {
+    public List<Map<String, Object>> getLinks() {
         return links;
     }
 
-    public void setLinks(String[] links) {
+    public void setLinks(List<Map<String, Object>> links) {
         this.links = links;
     }
 
@@ -155,7 +154,7 @@ public class Employee {
                 ", commissionPct=" + commissionPct +
                 ", managerId=" + managerId +
                 ", departmentId=" + departmentId +
-                ", links=" + Arrays.toString(links) +
+                ", links=" + links +
                 '}';
     }
 }
