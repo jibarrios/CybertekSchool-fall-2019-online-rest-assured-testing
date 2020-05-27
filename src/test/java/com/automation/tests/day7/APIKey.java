@@ -1,7 +1,11 @@
 package com.automation.tests.day7;
 
+import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.Map;
 
 import static io.restassured.RestAssured.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,15 +22,23 @@ public class APIKey {
 
     @Test
     public void getMovieTest(){
+        /**
+         * in this request, we don't have resource path
+         * /movie - example of resource path
+         */
         String itemToSearch = "Frozen";
-        given().
+        Response response = given().
                 queryParam("t", itemToSearch).
                 queryParam("apikey", API_KEY).
         when().
-                get().prettyPeek().
-        then().
+                get().prettyPeek();
+
+        response.then().
                 assertThat().
                 statusCode(200).
                 body("Title", containsString(itemToSearch));
+
+        List<Map<String, String>> ratings = response.jsonPath().get("Ratings");
+        System.out.println(ratings);
     }
 }
