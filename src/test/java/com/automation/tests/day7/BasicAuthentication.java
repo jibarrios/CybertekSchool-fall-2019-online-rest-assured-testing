@@ -54,4 +54,17 @@ public class BasicAuthentication {
         //if don't provide credentials, we must get 401 status code
         get("/spartans").prettyPeek().then().statusCode(401);
     }
+
+    @Test
+    public void authenticationTest2(){
+        baseURI = "http://practice.cybertekschool.com";
+
+        given().
+                auth().basic("admin", "admin").
+        when().
+                get("/basic_auth").prettyPeek().
+        then().
+                statusCode(200).
+                contentType(ContentType.HTML);
+    }
 }
