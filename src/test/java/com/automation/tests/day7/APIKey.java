@@ -41,4 +41,18 @@ public class APIKey {
         List<Map<String, String>> ratings = response.jsonPath().get("Ratings");
         System.out.println(ratings);
     }
+
+    @Test
+    public void authenticationTest(){
+        String itemToSearch = "Frozen";
+        Response response = given().
+                queryParam("t", itemToSearch).
+                when().
+                get().prettyPeek();
+
+        response.then().
+                assertThat().
+                statusCode(401).body("Error", is("No API key provided."));
+
+    }
 }
