@@ -41,9 +41,17 @@ public class BasicAuthentication {
             statusCode(403);
         /**
          * user - doesn't have wrights to add, delete or edit users. Only read.
+         * admin - has a permission to add new users.
          * 403 - Forbidden access. You logged in, but you are trying to do something that you are not allowed.
          * Authentication problem - you didn't login
          * Authorization problem - you logged in but cannot do some actions.
          */
+    }
+
+    @Test
+    public void authenticationTest(){
+        baseURI = ConfigurationReader.getProperty("SPARTAN.URI");
+        //if don't provide credentials, we must get 401 status code
+        get("/spartans").prettyPeek().then().statusCode(401);
     }
 }
