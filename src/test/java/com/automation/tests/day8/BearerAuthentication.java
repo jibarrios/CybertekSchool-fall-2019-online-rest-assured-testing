@@ -55,6 +55,18 @@ public class BearerAuthentication {
                 get("/api/rooms").prettyPeek();
     }
 
+    @Test
+    public void geAllTeamsTest(){
+        Response response = given().
+                                    header("Authorization", "Bearer "+getToken()).
+                            when().
+                                    get("/api/teams").prettyPeek();
+
+        response.then().statusCode(200);
+    }
+
+
+
     public String getToken() {
         Response response = given().
                 queryParam("email", "teacherva5@gmail.com").
