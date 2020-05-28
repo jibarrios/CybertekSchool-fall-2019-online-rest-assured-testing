@@ -3,6 +3,7 @@ package com.automation.tests.day7;
 import com.automation.pojos.Spartan;
 import com.automation.utilities.ConfigurationReader;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -67,4 +68,6 @@ public class BasicAuthentication {
                 statusCode(200).
                 contentType(ContentType.HTML);
     }
+
+
 }
