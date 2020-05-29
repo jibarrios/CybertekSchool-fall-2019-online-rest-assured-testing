@@ -27,5 +27,7 @@ public class SchemaValidation {
                 prettyPeek().
         then().
                 body(JsonSchemaValidator.matchesJsonSchema(schema));
+
+
     }
 }

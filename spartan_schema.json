@@ -1,65 +1,53 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "http://example.com/example.json",
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/object1590716273.json",
+  "title": "Root",
   "type": "object",
-  "title": "The root schema",
-  "description": "The root schema comprises the entire JSON document.",
-  "default": {},
-  "examples": [
-    {
-      "id": 33,
-      "name": "Wilek",
-      "gender": "Male",
-      "phone": 2877865902
-    }
-  ],
   "required": [
     "id",
     "name",
     "gender",
     "phone"
   ],
-  "additionalProperties": true,
   "properties": {
     "id": {
-      "$id": "#/properties/id",
+      "$id": "#root/id",
+      "title": "Id",
       "type": "integer",
-      "title": "The id schema",
-      "description": "An explanation about the purpose of this instance.",
-      "default": 0,
       "examples": [
         33
-      ]
+      ],
+      "default": 0
     },
     "name": {
-      "$id": "#/properties/name",
+      "$id": "#root/name",
+      "title": "Name",
       "type": "string",
-      "title": "The name schema",
-      "description": "An explanation about the purpose of this instance.",
       "default": "",
       "examples": [
         "Wilek"
-      ]
+      ],
+      "pattern": "^.*$"
     },
     "gender": {
-      "$id": "#/properties/gender",
+      "$id": "#root/gender",
+      "title": "Gender",
       "type": "string",
-      "title": "The gender schema",
-      "description": "An explanation about the purpose of this instance.",
       "default": "",
       "examples": [
         "Male"
-      ]
+      ],
+      "pattern": "(Male|Female)"
     },
     "phone": {
-      "$id": "#/properties/phone",
+      "$id": "#root/phone",
+      "title": "Phone",
       "type": "integer",
-      "title": "The phone schema",
-      "description": "An explanation about the purpose of this instance.",
-      "default": 0,
       "examples": [
         2877865902
-      ]
+      ],
+      "default": 0
     }
   }
 }
