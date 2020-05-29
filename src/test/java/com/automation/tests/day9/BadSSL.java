@@ -22,5 +22,6 @@ public class BadSSL {
         baseURI = "https://untrusted-root.badssl.com/";
         Response response = given().relaxedHTTPSValidation().get().prettyPeek();
         System.out.println(response.statusCode());
+
     }
 }
