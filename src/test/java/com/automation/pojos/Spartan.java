@@ -1,5 +1,6 @@
 package com.automation.pojos;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
@@ -21,6 +22,7 @@ public class Spartan {
     private String name;
     private String gender;
     @SerializedName("phone")
+    @JsonProperty("phone")
     private long phoneNumber;
 
     public Spartan(String name, String gender, long phoneNumber) {
